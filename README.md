@@ -133,6 +133,7 @@ quizapp/
 ├── index.html
 ├── package.json
 ├── vite.config.js
+├── netlify.toml              # Netlify deployment configuration
 └── README.md
 ```
 
@@ -157,6 +158,82 @@ The application includes 10 comprehensive quizzes:
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+
+##  Deployment
+
+This application is configured for deployment on Netlify. The necessary configuration files are already included in the project.
+
+### Netlify Deployment
+
+#### Option 1: Deploy via Netlify Dashboard
+
+1. **Build the project locally** (optional, for testing):
+   ```bash
+   npm run build
+   ```
+
+2. **Push your code to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+3. **Deploy on Netlify**:
+   - Go to [Netlify](https://www.netlify.com/)
+   - Sign up or log in
+   - Click "Add new site" → "Import an existing project"
+   - Connect to your GitHub repository
+   - Netlify will automatically detect the build settings from `netlify.toml`:
+     - **Build command**: `npm run build`
+     - **Publish directory**: `dist`
+   - Click "Deploy site"
+
+4. **Configure custom domain** (optional):
+   - Go to Site settings → Domain management
+   - Add your custom domain
+
+#### Option 2: Deploy via Netlify CLI
+
+1. **Install Netlify CLI**:
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+2. **Login to Netlify**:
+   ```bash
+   netlify login
+   ```
+
+3. **Initialize and deploy**:
+   ```bash
+   netlify init
+   netlify deploy --prod
+   ```
+
+### Build Configuration
+
+The project includes:
+- **`netlify.toml`**: Netlify configuration file with build settings
+- **`public/_redirects`**: SPA routing configuration for React Router
+
+### Important Notes
+
+- The build output directory is `dist` (Vite default)
+- All routes are redirected to `index.html` for client-side routing
+- Node.js version is set to 18 in the build environment
+- The application uses localStorage, so data persists per browser/device
+
+### Testing Production Build Locally
+
+Before deploying, test the production build locally:
+
+```bash
+npm run build
+npm run preview
+```
+
+Visit `http://localhost:4173` to preview the production build.
 
 ##  Features in Detail
 
